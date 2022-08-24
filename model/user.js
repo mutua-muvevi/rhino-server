@@ -7,58 +7,57 @@ const bcrypt = require("bcrypt")
 const UserSchema = new mongoose.Schema({
 	firstname: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [50, "The maximum length required 50"],
+		minlength: [3, "The minimum length required for firstname is 3"],
+		maxlength: [50, "The maximum length required for firstname is 50"],
 		required: [true, "Firstname is required"],
 		trim: true
 	},
 	lastname: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [50, "The maximum length required 50"],
+		minlength: [3, "The minimum length required for lastname is 3"],
+		maxlength: [50, "The maximum length required for lastname is 50"],
 		required: [true, "Lastname is required"],
 		trim: true
 	},
 	email: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [100, "The maximum length required 100"],
+		minlength: [3, "The minimum length required for email is 3"],
+		maxlength: [100, "The maximum length required for email is 100"],
 		required: [true, "Email is required"],
 		match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please add a valid email"],
 		trim: true
 	},
 	telephone: {
 		type: String,
-		minlength: [7, "The minimum length required 7"],
-		maxlength: [25, "The maximum length required 25"],
+		minlength: [7, "The minimum length required for telephone is 7"],
+		maxlength: [25, "The maximum length required for telephone is 25"],
 		required: [true, "Telephone is required"],
 		trim: true
 	},
 	city: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [100, "The maximum length required 100"],
+		minlength: [3, "The minimum length required for city is 3"],
+		maxlength: [100, "The maximum length required for city is 100"],
 		required: [true, "City is required"],
 		trim: true
 	},
 	country: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [100, "The maximum length required 100"],
+		minlength: [3, "The minimum length required for country is 3"],
+		maxlength: [100, "The maximum length required for country is 100"],
 		required: [true, "Country is required"],
 		trim: true
 	},
 	password: {
 		type: String,
-		minlength: [3, "The minimum length required 3"],
-		maxlength: [2500, "The maximum length required 2500"],
+		minlength: [5, "The minimum length required for password 5"],
+		maxlength: [2500, "Too long password"],
 		required: [true, "Password is required"]
 	},
 	authorization: {
 		type: String,
-		minlength: [4, "The minimum length required 4"],
-		maxlength: [6, "The maximum length required 6"],
-		required: [true, "Password is required"]
+		enum: ["admin", "user"],
+		default: "user"
 	},
 	resetPasswordToken : String,
 	resetPasswordExpiry : Date

@@ -24,7 +24,7 @@ const sendEmail = (options) => {
 		if(error){
 			logger.error(`Send Mail Error : ${error}`)
 		} else {
-			logger.info(`Email sent successfully`)
+			logger.info(`Transporter: Email sent successfully`)
 		}
 	})
 }

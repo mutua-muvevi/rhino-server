@@ -15,6 +15,6 @@ router.route("/users").get(onlyAdmin, fetchAllUsers);
 router.route("/admin").get(onlyAdmin, fetchAllAdmins);
 router.route("/single/:id").get(onlyAdmin, fetchSingleUser)
 router.route("/me").get(onlyAdmin, getMe, fetchSingleUser)
-// router.route("/delete/:id").delete(deleteUser);
+router.route("/delete/:id").delete(deleteUser);
 
 module.exports = router

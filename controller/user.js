@@ -2,6 +2,10 @@ const ErrorResponse = require("../utils/errorResponse");
 const User = require("../model/user");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendMail");
+const logger = require("../utils/logger");
+
+const { userCreated } = require("../view/usercreated");
+const { forgotPasswordMailView } = require("../view/forgotpassword");
 
 //resiter
 exports.register = async (req, res, next) => {
@@ -12,12 +16,30 @@ exports.register = async (req, res, next) => {
 		const emailExist = await User.findOne({email})
 
 		if(emailExist){
-			return next(new ErrorResponse("A user with this email already exist", 400))
+			return next(new ErrorResponse("Invalid Email", 400))
+		}
+		
+		const authorizationCheck = authorization.includes("user") || authorization.includes("admin")
+
+		if(!authorizationCheck){
+			return next(new ErrorResponse("Invalid user authorization", 400))
 		}
 
 		const user = await User.create({ firstname, lastname, email, telephone, city, country, password, authorization })
-
+		
 		sendToken(user, 201, res)
+
+		try {
+			sendEmail({
+				to: user.email,
+				subject: "Account created successfuly",
+				html: userCreated(firstname, lastname, email, telephone, city, country, password, authorization)
+			})
+			logger.info(`Account creation email from ${email} was sent successfully`)
+
+		} catch (error) {
+			logger.error("Send mail error")
+		}
 
 	} catch (error) {
 		next(error)
@@ -30,7 +52,8 @@ exports.login = async (req, res, next) => {
 	const { email, password } = req.body
 
 	try {
-		const user = await User.findOne({email}).select("+password")
+		const user = await User.findOne({email})
+			.select("+password")
 
 		if(!user){
 			return next(new ErrorResponse("Invalid credentials", 400))
@@ -57,7 +80,7 @@ exports.forgotPassword = async (req, res, next) => {
 		const user = await User.findOne({email})
 
 		if(!user){
-			return next(new ErrorResponse("Invalid email", 400))
+			return next(new ErrorResponse("Invalid user", 400))
 		}
 
 		const resetToken = user.genResetToken()
@@ -65,20 +88,14 @@ exports.forgotPassword = async (req, res, next) => {
 
 		// sending email part
 		const resetUrl = `https://rhinojonprimemetals.com/auth/resetpassword/${resetToken}`
+		const resetUrlDev = `http://localhost:3000/auth/resetpassword/${resetToken}`
 
-		const message = `
-			<h1>You have requested a password Reset</h1>
-			<p>Please click this link to reset your password, If you have not request for password reset please ignore this message.</p>
-			<a href=${resetUrl} clicktracking=off>
-				${resetUrl}
-			</a>
-		`
 
 		try {
 			sendEmail({
 				to: user.email,
-				subject: "You requested a password reset",
-				html: message
+				subject: "Password reset requested",
+				html: forgotPasswordMailView(resetUrl)
 			})
 
 			res.status(200).json({
@@ -115,7 +132,7 @@ exports.resetpassword = async (req, res, next) => {
 		})
 		
 		if(!user){
-			return next(new ErrorResponse("Invalid User token", 404))
+			return next(new ErrorResponse("Invalid token", 400))
 		}
 
 		user.password = req.body.password
@@ -142,7 +159,7 @@ exports.deleteUser = async (req, res, next) => {
 		const user = await User.findByIdAndDelete(req.params.id)
 
 		if(!user){
-			return next(new ErrorResponse("User with that ID does not exists", 404))
+			return next(new ErrorResponse("Invalid User", 404))
 		}
 
 		res.status(200).json({
@@ -196,7 +213,7 @@ exports.fetchSingleUser = async (req, res, next) => {
 			.limit(10)
 
 		if(!user){
-			return next(new ErrorResponse("User With that ID does not exist", 404))
+			return next(new ErrorResponse("Invalid user", 404))
 		}
 
 		

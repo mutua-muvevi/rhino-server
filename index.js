@@ -67,6 +67,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => logger.info(`Connected to port ${PORT}`))
 
+// throw new Error("SOMEFDVSDFVS")
 
 // process termination after unhandles promise rejection
 process.on("unhandledRejection", (error, promise) => {
@@ -74,6 +75,6 @@ process.on("unhandledRejection", (error, promise) => {
 		logger.error("Unhandled Promise Rejection Error :", error)
 		process.exit(1)
 	} else {
-		logger.info("Unhandled Promise Rejection Promise :", promise)
+		logger.info("Unhandled Promise :", promise)
 	}
 })
