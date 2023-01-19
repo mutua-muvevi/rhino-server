@@ -22,17 +22,17 @@ module.exports = createLogger({
 		// )}),
 		//
 		
-		new transports.MongoDB({
-			db : process.env.MONGO_URI,
-			level: 'error',
-			options: {
-				useUnifiedTopology: true
-			},
-			collection: 'Rhinojon Logs',
-			format: format.combine(
-				format.timestamp(),
-				format.json()
-			)
-		})
+		// new transports.MongoDB({
+		// 	db : process.env.MONGO_URI,
+		// 	level: 'error',
+		// 	options: {
+		// 		useUnifiedTopology: true
+		// 	},
+		// 	collection: 'Rhinojon Logs',
+		// 	format: format.combine(
+		// 		format.timestamp(),
+		// 		format.json()
+		// 	)
+		// })
 	]
 });
