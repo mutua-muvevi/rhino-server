@@ -35,6 +35,7 @@ const limiter = rateLimit({
 
 
 // express middlewares
+app.disable('x-powered-by');
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
