@@ -73,7 +73,6 @@ const StorageSchema = new mongoose.Schema({
 		minlength: [3, "The minimum length required is 3"],
 		maxlength: [100, "The maximum length required is 100"],
 		lowercase: true,
-		required: [true, "Date out is required"],
 	},
 	timein: {
 		type: String,
@@ -84,8 +83,7 @@ const StorageSchema = new mongoose.Schema({
 	timeout: {
 		type: String,
 		minlength: [3, "The minimum length required is 3"],
-		maxlength: [100, "The maximum length required is 100"],
-		required: [true, "Time out is required "],
+		maxlength: [100, "The maximum length required is 100"]
 	},
 
 	
