@@ -43,7 +43,7 @@ const StorageSchema = new mongoose.Schema({
 		required: [true, "Product name is required "],
 	},
 	weight: {
-		type: Number,
+		type: String,
 		minlength: [3, "The minimum length required is 3"],
 		maxlength: [100, "The maximum length required is 100"],
 		required: [true, "Product weight is required "],

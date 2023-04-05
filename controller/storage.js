@@ -32,7 +32,8 @@ exports.updateStorage = async (req, res, next) => {
 	const { fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes } = req.body
 
 	try {
-		const storage = await Storage.findOneAndUpdate(
+
+		const storage = await Storage.findByIdAndUpdate(
 			req.params.id,
 			{ fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes },
 			{ new: true }
