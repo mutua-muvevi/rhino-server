@@ -1,8 +1,10 @@
 const Storage = require("../model/storage");
+const User = require("../model/user");
 const ErrorResponse = require("../utils/errorResponse");
 
 // post storage
 exports.postStorage = async (req, res, next) => {
+
 	const { fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes } = req.body
 	
 	try {
@@ -12,7 +14,9 @@ exports.postStorage = async (req, res, next) => {
 			return next(new ErrorResponse("This track number already exists, please try another", 400))
 		}
 
-		const storage = await Storage.create({ fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes })
+		const storage = new Storage({ fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes })
+
+		await storage.save()
 
 		res.status(201).json({
 			success: true,
@@ -52,6 +56,8 @@ exports.updateStorage = async (req, res, next) => {
 exports.getAllStorage = async (req, res, next) => {
 	try {
 		const storageRecords = await Storage.find({}).sort({createdAt: -1})
+
+		// console.log(storageRecords)
 
 		res.status(200).json({
 			success: true,
