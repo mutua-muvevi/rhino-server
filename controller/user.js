@@ -53,20 +53,20 @@ exports.login = async (req, res, next) => {
 
 	try {
 		const user = await User.findOne({email})
-			.select("+password")
+		.select("+password")
 
 		if(!user){
 			return next(new ErrorResponse("Invalid credentials", 400))
 		}
 
 		const matchPassword = await user.comparePasswords(password)
-
+		
 		if(!matchPassword){
 			return next(new ErrorResponse("Invalid credentials", 400))
 		}
 
 		sendToken(user, 200, res)
-
+		
 	} catch (error) {
 		next(error)
 	}
