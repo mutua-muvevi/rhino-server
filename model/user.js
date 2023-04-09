@@ -56,7 +56,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	authorization: {
 		type: String,
-		enum: ["admin", "user"],
+		enum: ["admin", "client"],
 		default: "user"
 	},
 	resetPasswordToken : String,

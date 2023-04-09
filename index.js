@@ -1,6 +1,7 @@
 // node modules import
 require("dotenv").config({path: "./config.env"});
 require('winston-mongodb');
+
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require('express-rate-limit');
@@ -40,9 +41,10 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(hpp());
-app.use(limiter);
+// app.use(limiter);
 app.use(mongoSanitize());
 app.use(xss());
+
 app.use("/api/user", require("./routes/user"));
 
 app.use("/api/storage", require("./routes/storage"));
