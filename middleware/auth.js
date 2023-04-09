@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
 const ErrorResponse = require("../utils/errorResponse");
+const logger = require("../utils/logger");
 
 // login protection
 exports.onlyLoggedIn = async (req, res, next) => {
@@ -14,7 +15,7 @@ exports.onlyLoggedIn = async (req, res, next) => {
 	}
 	
 	if(!token){
-		return next(new ErrorResponse("You are not authorized to access this route no tkn", 401))
+		return next(new ErrorResponse("You are not authorized to access this route", 401))
 	}
 
 	try {
@@ -32,7 +33,8 @@ exports.onlyLoggedIn = async (req, res, next) => {
 		next()
 
 	} catch (error) {
-		return next(new ErrorResponse("Not authorized to access this route catch", 400))
+		logger.error(`Catch admin error: ${JSON.stringify(error)}`)
+		return next(new ErrorResponse("Not authorized to access this route", 400))
 	}
 }
 
@@ -69,7 +71,7 @@ exports.onlyAdmin = async (req, res, next) => {
 		next()
 
 	} catch (error) {
-		
-		return next(new ErrorResponse("Not authorized to access this route adm", 401))
+		logger.error(`Catch admin error: ${JSON.stringify(error)}`)
+		return next(new ErrorResponse("Not authorized to access this route", 401))
 	}
 }

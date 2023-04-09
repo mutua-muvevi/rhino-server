@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router()
-const { register, login, forgotPassword, resetpassword, deleteUser, fetchAllUsers, fetchAllAdmins, fetchSingleUser } = require("../controller/user");
+const { register, login, forgotPassword, resetpassword, deleteUser, fetchAllUsers, fetchAllAdmins, fetchSingleUser, editUser } = require("../controller/user");
 const { getMe } = require("../middleware/me");
 const { onlyAdmin } = require("../middleware/auth");
 
@@ -15,6 +15,7 @@ router.route("/users").get(onlyAdmin, fetchAllUsers);
 router.route("/admin").get(onlyAdmin, fetchAllAdmins);
 router.route("/single/:id").get(onlyAdmin, fetchSingleUser)
 router.route("/me").get(onlyAdmin, getMe, fetchSingleUser)
-router.route("/delete/:id").delete(deleteUser);
+router.route("/delete/:id").delete(onlyAdmin, deleteUser);
+router.route("/edit/:id").put(onlyAdmin, editUser);
 
 module.exports = router
