@@ -37,34 +37,6 @@ const EventSchema = new mongoose.Schema({
 	},
 })
 
-// the items schema
-const ItemSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		minlength: [3, "The minimum length required is 3"],
-		maxlength: [100, "The maximum length required is 100"],
-		required: [true, "Time is required"]
-	},
-	amount: {
-		type: String,
-		minlength: [3, "The minimum length required is 3"],
-		maxlength: [100, "The maximum length required is 100"],
-		required: [true, "Time is required"]
-	},
-	weight: {
-		type: String,
-		minlength: [3, "The minimum length required is 3"],
-		maxlength: [100, "The maximum length required is 100"],
-		required: [true, "Time is required"]
-	},
-	itemDescription: {
-		type: String,
-		minlength: [3, "The minimum length required is 3"],
-		maxlength: [100, "The maximum length required is 100"],
-		required: [true, "Time is required"]
-	}
-})
-
 // the shipping schema
 const ShippingSchema = new mongoose.Schema({
 	shippersfullname: {
