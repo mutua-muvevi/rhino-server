@@ -7,21 +7,23 @@ const {
     getShippingById, 
     getShippingByTrack,
     postShipment, 
-    updateShipping, 
+    addEvents, 
     updateEntireShipping, 
-    deleteShipping 
+    deleteShipping, 
+    editEvents
 } = require("../controller/shipping");
 
-
+//shiping
 router.route("/item/:id").get(onlyAdmin, getShippingById);
 router.route("/all").get(onlyAdmin, getAllShippingRecords);
-
 router.route("/post").post(onlyAdmin, postShipment);
 router.route("/item/track").post(getShippingByTrack)
-
-router.route("/event/update").put(onlyAdmin, updateShipping);
 router.route("/item/update").put(onlyAdmin, updateEntireShipping);
-
 router.route("/delete/:id").delete(onlyAdmin, deleteShipping);
+
+//events
+router.route("/event/add").put(onlyAdmin, addEvents);
+router.route("/event/:id/edit").put(onlyAdmin, editEvents)
+
 
 module.exports = router
