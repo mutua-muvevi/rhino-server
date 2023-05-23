@@ -10,7 +10,8 @@ const {
     addEvents, 
     updateEntireShipping, 
     deleteShipping, 
-    editEvents
+    editEvents,
+    deleteEvent
 } = require("../controller/shipping");
 
 //shiping
@@ -24,6 +25,7 @@ router.route("/delete/:id").delete(onlyAdmin, deleteShipping);
 //events
 router.route("/event/add").put(onlyAdmin, addEvents);
 router.route("/event/:id/edit").put(onlyAdmin, editEvents)
+router.route("/event/:trackno/delete/:id").delete(onlyAdmin, deleteEvent)
 
 
 module.exports = router

@@ -20,7 +20,7 @@ exports.register = async (req, res, next) => {
 			return next(new ErrorResponse("Invalid Email", 400))
 		}
 		
-		const authorizationCheck = authorization.includes("user") || authorization.includes("admin")
+		const authorizationCheck = authorization.includes("client") || authorization.includes("admin")
 
 		if(!authorizationCheck){
 			return next(new ErrorResponse("Invalid user authorization", 400))
@@ -94,8 +94,9 @@ exports.forgotPassword = async (req, res, next) => {
 		const resetUrlDev = `http://localhost:3000/auth/resetpassword/${resetToken}`
 
 
+		console.log(email)
 		try {
-			sendEmail({
+			await sendEmail({
 				to: user.email,
 				subject: "Password reset requested",
 				html: forgotPasswordMailView(resetUrl)
