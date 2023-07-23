@@ -118,19 +118,16 @@ const DepositorSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for telephone is 3"],
 		maxlength: [100, "The maximum length required for telephone is 100"],
-		required: [true, "Telephone is required "],
 	},
 	company: {
 		type: String,
 		minlength: [3, "The minimum length required for company is 3"],
 		maxlength: [100, "The maximum length required for company is 100"],
-		required: [true, "Company is required "],
 	},
 	address: {
 		type: String,
 		minlength: [3, "The minimum length required for depositor address is 3"],
 		maxlength: [100, "The maximum length required for depositor address is 100"],
-		required: [true, "Depositor address is required "],
 	},
 });
 
@@ -153,23 +150,82 @@ const CosigneeSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for telephone is 3"],
 		maxlength: [100, "The maximum length required for telephone is 100"],
-		required: [true, "Telephone is required "],
 	},
 	company: {
 		type: String,
 		minlength: [3, "The minimum length required for company is 3"],
 		maxlength: [100, "The maximum length required for company is 100"],
-		required: [true, "Company is required "],
 	},
 	address: {
 		type: String,
 		minlength: [3, "The minimum length required for depositor address is 3"],
 		maxlength: [100, "The maximum length required for depositor address is 100"],
-		required: [true, "Depositor address is required "],
 	},
 });
 
 const ReceiverSchema = new mongoose.Schema({
+	fullname: {
+		type: String,
+		minlength: [3, "The minimum length required for fullname is 3"],
+		maxlength: [100, "The maximum length required for fullname is 100"],
+	},
+	email: {
+		type: String,
+		minlength: [3, "The minimum length required for email is 3"],
+		maxlength: [100, "The maximum length required for email is 100"],
+		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
+		lowercase: true,
+	},
+	telephone: {
+		type: String,
+		minlength: [3, "The minimum length required for telephone is 3"],
+		maxlength: [100, "The maximum length required for telephone is 100"],
+	},
+	date: {
+		type: String,
+		minlength: [3, "The minimum length required for date is 3"],
+		maxlength: [100, "The maximum length required for date is 100"],
+	},
+	time: {
+		type: String,
+		minlength: [3, "The minimum length required for time is 3"],
+		maxlength: [100, "The maximum length required for time is 100"],
+	},
+	receiptNo: {
+		type: String,
+		minlength: [3, "The minimum length required for receiptNo is 3"],
+		maxlength: [100, "The maximum length required for receiptNo is 100"],
+	},
+});
+
+const AcceptanceSchema = new mongoose.Schema({
+	from: new mongoose.Schema({
+		date: {
+			type: String,
+			minlength: [3, "The minimum length required for date is 3"],
+			maxlength: [100, "The maximum length required for date is 100"],
+		},
+		time: {
+			type: String,
+			minlength: [3, "The minimum length required for time is 3"],
+			maxlength: [100, "The maximum length required for time is 100"],
+		},
+	}),
+	to: new mongoose.Schema({
+		date: {
+			type: String,
+			minlength: [3, "The minimum length required for date is 3"],
+			maxlength: [100, "The maximum length required for date is 100"],
+		},
+		time: {
+			type: String,
+			minlength: [3, "The minimum length required for time is 3"],
+			maxlength: [100, "The maximum length required for time is 100"],
+		},
+	}),
+});
+
+const OwnerSchema = new mongoose.Schema({
 	fullname: {
 		type: String,
 		minlength: [3, "The minimum length required for fullname is 3"],
@@ -188,73 +244,6 @@ const ReceiverSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for telephone is 3"],
 		maxlength: [100, "The maximum length required for telephone is 100"],
-		required: [true, "Telephone is required "],
-	},
-	date: {
-		type: String,
-		minlength: [3, "The minimum length required for date is 3"],
-		maxlength: [100, "The maximum length required for date is 100"],
-		required: [true, "date is required "],
-	},
-	time: {
-		type: String,
-		minlength: [3, "The minimum length required for time is 3"],
-		maxlength: [100, "The maximum length required for time is 100"],
-		required: [true, "time is required "],
-	},
-	receiptNo: {
-		type: String,
-		minlength: [3, "The minimum length required for receiptNo is 3"],
-		maxlength: [100, "The maximum length required for receiptNo is 100"],
-		required: [true, "receiptNo is required "],
-	},
-});
-
-const AcceptanceSchema = new mongoose.Schema({
-	from: new mongoose.Schema({
-		date: {
-			type: String,
-			minlength: [3, "The minimum length required for date is 3"],
-			maxlength: [100, "The maximum length required for date is 100"],
-			required: [true, "date is required "],
-		},
-		time: {
-			type: String,
-			minlength: [3, "The minimum length required for time is 3"],
-			maxlength: [100, "The maximum length required for time is 100"],
-			required: [true, "time is required "],
-		},
-	}),
-	to: new mongoose.Schema({
-		date: {
-			type: String,
-			minlength: [3, "The minimum length required for date is 3"],
-			maxlength: [100, "The maximum length required for date is 100"],
-			required: [true, "date is required "],
-		},
-		time: {
-			type: String,
-			minlength: [3, "The minimum length required for time is 3"],
-			maxlength: [100, "The maximum length required for time is 100"],
-			required: [true, "time is required "],
-		},
-	}),
-});
-
-const OwnerShipSchema = new mongoose.Schema({
-	fullname: {
-		type: String,
-		minlength: [3, "The minimum length required for fullname is 3"],
-		maxlength: [100, "The maximum length required for fullname is 100"],
-		required: [true, "Fullname is required"],
-	},
-	email: {
-		type: String,
-		minlength: [3, "The minimum length required for email is 3"],
-		maxlength: [100, "The maximum length required for email is 100"],
-		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
-		lowercase: true,
-		required: [true, "Email is required"],
 	},
 	address: {
 		type: String,
@@ -262,11 +251,15 @@ const OwnerShipSchema = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for depositor address is 100"],
 		required: [true, "Depositor address is required "],
 	},
+	company: {
+		type: String,
+		minlength: [3, "The minimum length required for company is 3"],
+		maxlength: [100, "The maximum length required for company is 100"],
+	},
 	accountNo: {
 		type: String,
 		minlength: [3, "The minimum length required for account number is 3"],
 		maxlength: [100, "The maximum length required for account number is 100"],
-		required: [true, "Account number is required "],
 	},
 });
 
@@ -275,29 +268,24 @@ const ProductDetailSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for HS code is 3"],
 		maxlength: [100, "The maximum length required for HS code is 100"],
-		required: [true, "HS code is required "],
 	},
 	packagesNo: {
 		type: Number,
-		required: [true, "amount of packages is required "],
 	},
 	netQuantity: {
 		type: String,
 		minlength: [3, "The minimum length required for net quantity is 3"],
 		maxlength: [100, "The maximum length required for net quantity is 100"],
-		required: [true, "net quantity is required "],
 	},
 	marketRate: {
 		type: String,
 		minlength: [3, "The minimum length required for market rate is 3"],
 		maxlength: [100, "The maximum length required for market rate is 100"],
-		required: [true, "market rate is required "],
 	},
 	totalMarketValue: {
 		type: String,
 		minlength: [3, "The minimum length required for total market value is 3"],
 		maxlength: [100, "The maximum length required for total market value is 100"],
-		required: [true, "total market value is required "],
 	},
 	description: {
 		type: String,
@@ -312,7 +300,7 @@ const StorageSchema = new mongoose.Schema({
 	cosignee: CosigneeSchema,
 	receiver: ReceiverSchema,
 	acceptance: AcceptanceSchema,
-	ownerShip: OwnerShipSchema,
+	owner: OwnerSchema,
 	productDetail: [ProductDetailSchema],
 	privateMarks: {
 		type: String,
@@ -333,16 +321,17 @@ const StorageSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for receipt number is 3"],
 		maxlength: [100, "The maximum length required for receipt number is 100"],
+		required: [true, "Receipt number is required"]
 	},
 	receiptValidUpTo: {
 		type: String,
 		minlength: [3, "The minimum length required for receipt validation period is 3"],
 		maxlength: [100, "The maximum length required for receipt validation period is 100"],
 	},
-	productOPrigin: {
+	productOrigin: {
 		type: String,
-		minlength: [3, "The minimum length required for receipt validation period is 3"],
-		maxlength: [100, "The maximum length required for receipt validation period is 100"],
+		minlength: [3, "The minimum length required for product origin is 3"],
+		maxlength: [100, "The maximum length required for product origin is 100"],
 	},
 	trackno: {
 		type: String,

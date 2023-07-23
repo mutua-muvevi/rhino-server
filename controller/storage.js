@@ -5,7 +5,52 @@ const ErrorResponse = require("../utils/errorResponse");
 // post storage
 exports.postStorage = async (req, res, next) => {
 
-	const { fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes } = req.body
+	const { 
+		depositorFullname,
+		depositorEmail,
+		depositorTelephone,
+		depositorCompany,
+		depositorAddress,
+		
+		
+		consigneeFullname,
+		consigneeEmail,
+		consigneeTelephone,
+		consigneeCompany,
+		consigneeAddress,
+		
+		
+		receiverFullname,
+		receiverEmail,
+		receiverTelephone,
+		receiverDate,
+		receiverTime,
+		receiverReceiptNo,
+		
+		acceptedFromDate,
+		acceptedFromTime,
+		acceptedToDate,
+		acceptedToTime,
+		
+		ownerFullname,
+		ownerEmail,
+		ownerTelephone,
+		ownerCompany,
+		ownerAddress,
+		ownerAccountNumber,
+
+		productDetailArray,
+
+		privateMarks,
+		handlingCharges,
+		assuredFor,
+		receiptNumber,
+		receiptValidUpTo,
+		productOrigin,
+
+		trackno
+
+	 } = req.body
 	
 	try {
 		const existingTrackNo = await Storage.findOne({trackno})
@@ -14,7 +59,74 @@ exports.postStorage = async (req, res, next) => {
 			return next(new ErrorResponse("This track number already exists, please try another", 400))
 		}
 
-		const storage = new Storage({ fullname, email, telephone, company, trackno, product, weight, description, storageaddress, datein, dateout, timein, timeout, notes })
+		const depositorItems = {
+			fullname: depositorFullname,
+			email: depositorEmail,
+			telephone: depositorTelephone,
+			company: depositorCompany,
+			address: depositorAddress,
+		}
+
+		const consigneeItems = {
+			fullname: consigneeFullname,
+			email: consigneeEmail,
+			telephone: consigneeTelephone,
+			company: consigneeCompany,
+			address: consigneeAddress,
+		}
+
+		const receiverItems = {
+			fullname: receiverFullname,
+			email: receiverEmail,
+			telephone: receiverTelephone,
+			date: receiverDate,
+			time: receiverTime,
+			receiptNo: receiverReceiptNo,
+		}
+
+		const acceptanceItems = {
+			from: {
+				date: acceptedFromDate,
+				time: acceptedFromTime
+			},
+			to: {
+				date: acceptedToDate,
+				time: acceptedToTime
+			},
+		}
+
+
+		const ownerItems = {
+			fullname: ownerFullname,
+			email: ownerEmail,
+			telephone: ownerTelephone,
+			company: ownerCompany,
+			address: ownerAddress,
+			accountNo: ownerAccountNumber,
+		}
+
+		const storage = new Storage({ 
+			trackno,
+
+			depositor: depositorItems,
+			cosignee: consigneeItems,
+			receiver: receiverItems,
+			acceptance: acceptanceItems,
+			owner: ownerItems,
+
+			productDetailArray,
+			privateMarks,
+			handlingCharges,
+			assuredFor,
+			receiptNumber,
+			receiptValidUpTo,
+			productOrigin,
+
+		})
+
+		if(!storage){
+			return next(new ErrorResponse("Something went wrong while creating storage", 400))
+		}
 
 		await storage.save()
 
