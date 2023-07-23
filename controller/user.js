@@ -94,7 +94,6 @@ exports.forgotPassword = async (req, res, next) => {
 		const resetUrlDev = `http://localhost:3000/auth/resetpassword/${resetToken}`
 
 
-		console.log(email)
 		try {
 			await sendEmail({
 				to: user.email,
