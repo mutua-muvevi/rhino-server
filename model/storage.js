@@ -144,7 +144,6 @@ const CosigneeSchema = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for email is 100"],
 		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
 		lowercase: true,
-		required: [true, "Email is required"],
 	},
 	telephone: {
 		type: String,
@@ -270,7 +269,8 @@ const ProductDetailSchema = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for HS code is 100"],
 	},
 	packagesNo: {
-		type: Number,
+		type: String,
+		maxlength: [100, "The maximum length required for number of packages is 100"],
 	},
 	netQuantity: {
 		type: String,
@@ -301,7 +301,7 @@ const StorageSchema = new mongoose.Schema({
 	receiver: ReceiverSchema,
 	acceptance: AcceptanceSchema,
 	owner: OwnerSchema,
-	productDetail: [ProductDetailSchema],
+	productDetails: [ProductDetailSchema],
 	privateMarks: {
 		type: String,
 		minlength: [3, "The minimum length required for private marks is 3"],
