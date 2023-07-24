@@ -148,6 +148,10 @@ const StorageSchema = new mongoose.Schema({
 		type: String,
 		maxlength: [100, "The maximum length required for warehouse location is 100"],
 	},
+	receivedBy: {
+		type: String,
+		maxlength: [100, "The maximum length required for received by is 100"],
+	},
 	trackno: {
 		type: String,
 		maxlength: [100, "The maximum length required for track number is 100"],
