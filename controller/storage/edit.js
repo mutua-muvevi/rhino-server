@@ -31,6 +31,7 @@ exports.editStorage = async (req, res, next) => {
 		receiptNumber,
 		receiptValidUpTo,
 		productOrigin,
+		wareHouseLocation,
 
 		trackno
 
@@ -80,6 +81,7 @@ exports.editStorage = async (req, res, next) => {
 		if (receiptNumber) storage.receiptNumber = receiptNumber
 		if (receiptValidUpTo) storage.receiptValidUpTo = receiptValidUpTo
 		if (productOrigin) storage.productOrigin = productOrigin
+		if (wareHouseLocation) storage.wareHouseLocation = wareHouseLocation
 
 		await storage.save()
 
