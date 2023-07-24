@@ -13,7 +13,6 @@ const StorageSchem = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for email is 100"],
 		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
 		lowercase: true,
-		required: [true, "Email is required"],
 	},
 	telephone: {
 		type: String,
@@ -112,7 +111,6 @@ const DepositorSchema = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for email is 100"],
 		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
 		lowercase: true,
-		required: [true, "Email is required"],
 	},
 	telephone: {
 		type: String,
@@ -171,7 +169,6 @@ const OwnerSchema = new mongoose.Schema({
 		maxlength: [100, "The maximum length required for email is 100"],
 		match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'],
 		lowercase: true,
-		required: [true, "Email is required"],
 	},
 	telephone: {
 		type: String,
@@ -234,7 +231,7 @@ const StorageSchema = new mongoose.Schema({
 	acceptance: AcceptanceSchema,
 	owner: OwnerSchema,
 	productDetails: [ProductDetailSchema],
-	
+
 	privateMarks: {
 		type: String,
 		minlength: [3, "The minimum length required for private marks is 3"],
