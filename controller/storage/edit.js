@@ -22,6 +22,7 @@ exports.editStorage = async (req, res, next) => {
 		ownerCompany,
 		ownerAddress,
 		ownerAccountNumber,
+		ownerIdentificationNumber,
 
 		productDetailArray,
 
@@ -72,6 +73,7 @@ exports.editStorage = async (req, res, next) => {
 		if (ownerCompany) storage.owner.company = ownerCompany
 		if (ownerAddress) storage.owner.address = ownerAddress
 		if (ownerAccountNumber) storage.owner.accountNo = ownerAccountNumber
+		if (ownerIdentificationNumber) storage.owner.identificationNo = ownerIdentificationNumber
 
 		if (productDetailArray) storage.productDetails = productDetailArray
 
