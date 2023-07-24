@@ -191,6 +191,11 @@ const OwnerSchema = new mongoose.Schema({
 		minlength: [3, "The minimum length required for account number is 3"],
 		maxlength: [100, "The maximum length required for account number is 100"],
 	},
+	identificationNo: {
+		type: String,
+		minlength: [3, "The minimum length required for identification number is 3"],
+		maxlength: [100, "The maximum length required for identification number is 100"],
+	},
 });
 
 const ProductDetailSchema = new mongoose.Schema({

@@ -23,6 +23,7 @@ exports.postStorage = async (req, res, next) => {
 		ownerCompany,
 		ownerAddress,
 		ownerAccountNumber,
+		ownerIdentificationNumber,
 
 		productDetailArray,
 
@@ -74,6 +75,7 @@ exports.postStorage = async (req, res, next) => {
 			company: ownerCompany,
 			address: ownerAddress,
 			accountNo: ownerAccountNumber,
+			identificationNo: ownerIdentificationNumber
 		}
 
 		const storage = new Storage({ 
