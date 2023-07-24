@@ -12,21 +12,6 @@ exports.postStorage = async (req, res, next) => {
 		depositorCompany,
 		depositorAddress,
 		
-		
-		consigneeFullname,
-		consigneeEmail,
-		consigneeTelephone,
-		consigneeCompany,
-		consigneeAddress,
-		
-		
-		receiverFullname,
-		receiverEmail,
-		receiverTelephone,
-		receiverDate,
-		receiverTime,
-		receiverReceiptNo,
-		
 		acceptedFromDate,
 		acceptedFromTime,
 		acceptedToDate,
@@ -58,6 +43,8 @@ exports.postStorage = async (req, res, next) => {
 		if (existingTrackNo) {
 			return next(new ErrorResponse("This track number already exists, please try another", 400))
 		}
+
+		console.log("Req", req.body)
 		
 		const depositorItems = {
 			fullname: depositorFullname,
@@ -65,23 +52,6 @@ exports.postStorage = async (req, res, next) => {
 			telephone: depositorTelephone,
 			company: depositorCompany,
 			address: depositorAddress,
-		}
-
-		const consigneeItems = {
-			fullname: consigneeFullname,
-			email: consigneeEmail,
-			telephone: consigneeTelephone,
-			company: consigneeCompany,
-			address: consigneeAddress,
-		}
-
-		const receiverItems = {
-			fullname: receiverFullname,
-			email: receiverEmail,
-			telephone: receiverTelephone,
-			date: receiverDate,
-			time: receiverTime,
-			receiptNo: receiverReceiptNo,
 		}
 
 		const acceptanceItems = {
@@ -109,8 +79,6 @@ exports.postStorage = async (req, res, next) => {
 			trackno,
 
 			depositor: depositorItems,
-			cosignee: consigneeItems,
-			receiver: receiverItems,
 			acceptance: acceptanceItems,
 			owner: ownerItems,
 
