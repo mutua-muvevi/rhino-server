@@ -34,6 +34,7 @@ exports.postStorage = async (req, res, next) => {
 		receiptValidUpTo,
 		productOrigin,
 		wareHouseLocation,
+		receivedBy,
 
 		trackno
 
@@ -93,7 +94,8 @@ exports.postStorage = async (req, res, next) => {
 			receiptNumber,
 			receiptValidUpTo,
 			productOrigin,
-			wareHouseLocation
+			wareHouseLocation,
+			receivedBy
 
 		})
 
