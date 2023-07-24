@@ -11,21 +11,6 @@ exports.editStorage = async (req, res, next) => {
 		depositorCompany,
 		depositorAddress,
 		
-		
-		consigneeFullname,
-		consigneeEmail,
-		consigneeTelephone,
-		consigneeCompany,
-		consigneeAddress,
-		
-		
-		receiverFullname,
-		receiverEmail,
-		receiverTelephone,
-		receiverDate,
-		receiverTime,
-		receiverReceiptNo,
-		
 		acceptedFromDate,
 		acceptedFromTime,
 		acceptedToDate,
@@ -74,19 +59,6 @@ exports.editStorage = async (req, res, next) => {
 		if (depositorTelephone) storage.depositor.telephone = depositorTelephone
 		if (depositorCompany) storage.depositor.company = depositorCompany
 		if (depositorAddress) storage.depositor.address = depositorAddress
-
-		if (consigneeFullname) storage.cosignee.fullname = consigneeFullname
-		if (consigneeEmail) storage.cosignee.email = consigneeEmail
-		if (consigneeTelephone) storage.cosignee.telephone = consigneeTelephone
-		if (consigneeCompany) storage.cosignee.company = consigneeCompany
-		if (consigneeAddress) storage.cosignee.address = consigneeAddress
-
-		if (receiverFullname) storage.receiver.fullname = receiverFullname
-		if (receiverEmail) storage.receiver.email = receiverEmail
-		if (receiverTelephone) storage.receiver.telephone = receiverTelephone
-		if (receiverDate) storage.receiver.date = receiverDate
-		if (receiverTime) storage.receiver.time = receiverTime
-		if (receiverReceiptNo) storage.receiver.receiptNo = receiverReceiptNo
 
 		if (acceptedFromDate) storage.acceptance.from.date = acceptedFromDate
 		if (acceptedFromTime) storage.acceptance.from.time = acceptedFromTime
