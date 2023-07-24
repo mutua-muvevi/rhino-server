@@ -22,7 +22,7 @@ exports.editStorage = async (req, res, next) => {
 		ownerCompany,
 		ownerAddress,
 		ownerAccountNumber,
-		ownerIdentificationNumber
+		ownerIdentificationNumber,
 
 		productDetailArray,
 
