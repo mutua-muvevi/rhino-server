@@ -263,6 +263,11 @@ const StorageSchema = new mongoose.Schema({
 		minlength: [3, "The minimum length required for product origin is 3"],
 		maxlength: [100, "The maximum length required for product origin is 100"],
 	},
+	wareHouseLocation: {
+		type: String,
+		minlength: [3, "The minimum length required for warehouse location is 3"],
+		maxlength: [100, "The maximum length required for warehouse location is 100"],
+	},
 	trackno: {
 		type: String,
 		minlength: [3, "The minimum length required for track number is 3"],
