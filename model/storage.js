@@ -114,6 +114,7 @@ const ProductDetailSchema = new mongoose.Schema({
 	},
 });
 
+
 const StorageSchema = new mongoose.Schema({
 	depositor: DepositorSchema,
 	acceptance: AcceptanceSchema,
@@ -152,11 +153,18 @@ const StorageSchema = new mongoose.Schema({
 		type: String,
 		maxlength: [100, "The maximum length required for received by is 100"],
 	},
+	depositDate: {
+		type: String,
+		maxlength: [100, "The maximum length required for date of deposit is 100"],
+	},
+	depositTime: {
+		type: String,
+		maxlength: [100, "The maximum length required for time of deposit is 100"],
+	},
 	trackno: {
 		type: String,
 		maxlength: [100, "The maximum length required for track number is 100"],
 		required: [true, "Track number is required "],
-		trim: true,
 		unique: true
 	},
 

@@ -34,13 +34,14 @@ exports.editStorage = async (req, res, next) => {
 		productOrigin,
 		wareHouseLocation,
 		receivedBy,
+		depositDate,
+		depositTime,
 
 		trackno
 
 	} = req.body
 
-	try {console.log("body", req.body)
-	console.log("req params", req.params)
+	try {
 
 		// find if track number exits
 		const existTrackNo = await Storage.findOne({trackno})
@@ -86,6 +87,8 @@ exports.editStorage = async (req, res, next) => {
 		if (productOrigin) storage.productOrigin = productOrigin
 		if (wareHouseLocation) storage.wareHouseLocation = wareHouseLocation
 		if (receivedBy) storage.receivedBy = receivedBy
+		if (depositDate) storage.depositDate = depositDate
+		if (depositTime) storage.depositTime = depositTime
 
 		await storage.save()
 
