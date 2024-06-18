@@ -1,8 +1,8 @@
-const ErrorResponse = require("../utils/errorResponse");
-const User = require("../model/user");
+const ErrorResponse = require("../../utils/errorResponse");
+const User = require("../../model/user");
 const crypto = require("crypto");
-const sendEmail = require("../utils/sendMail");
-const logger = require("../utils/logger");
+const sendEmail = require("../../utils/sendMail");
+const logger = require("../../utils/logger");
 
 exports.login = async (req, res, next) => {
 	const { email, password } = req.body;
