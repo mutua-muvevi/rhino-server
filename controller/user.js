@@ -9,45 +9,6 @@ const { forgotPasswordMailView  } = require("../view/forgotpassword");
 const { accountEditedView } = require("../view/useredit");
 
 //resiter
-exports.register = async (req, res, next) => {
-	const { firstname, lastname, email, telephone, city, country, password, authorization } = req.body
-
-	try {
-
-		const emailExist = await User.findOne({email})
-
-		if(emailExist){
-			return next(new ErrorResponse("Invalid Email", 400))
-		}
-		
-		const authorizationCheck = authorization.includes("client") || authorization.includes("admin")
-
-		if(!authorizationCheck){
-			return next(new ErrorResponse("Invalid user authorization", 400))
-		}
-
-		const user = await User.create({ firstname, lastname, email, telephone, city, country, password, authorization })
-		
-		sendToken(user, 201, res)
-
-		try {
-			sendEmail({
-				to: user.email,
-				subject: "Account created successfuly",
-				html: userCreated(firstname, lastname, email, telephone, city, country, password, authorization)
-			})
-			logger.info(`Account creation email from ${email} was sent successfully`)
-
-		} catch (error) {
-			logger.error("Send mail error")
-		}
-
-	} catch (error) {
-		logger.error(`Catch registration error: ${JSON.stringify(error)}`)
-		next(error)
-	}
-}
-
 
 // login
 exports.login = async (req, res, next) => {
@@ -78,41 +39,42 @@ exports.login = async (req, res, next) => {
 // forgot password
 exports.forgotPassword = async (req, res, next) => {
 	const { email } = req.body
-
+	
 	try {
 		const user = await User.findOne({email})
-
+		
 		if(!user){
 			return next(new ErrorResponse("Invalid user", 400))
 		}
-
+		
 		const resetToken = user.genResetToken()
-		user.save()
+		console.log("User", req.headers)
+		await user.save()
 
 		// sending email part
-		const resetUrl = `https://rhinojonprimemetals.com/auth/resetpassword/${resetToken}`
+		// const resetUrl = `https://rhinojonprimemetals.com/auth/resetpassword/${resetToken}`
 		const resetUrlDev = `http://localhost:3000/auth/resetpassword/${resetToken}`
 
 
-		try {
-			await sendEmail({
-				to: user.email,
-				subject: "Password reset requested",
-				html: forgotPasswordMailView(resetUrl)
-			})
+		// try {
+		// 	await sendEmail({
+		// 		to: user.email,
+		// 		subject: "Password reset requested",
+		// 		html: forgotPasswordMailView(resetUrlDev)
+		// 	})
 
-			res.status(200).json({
-				success: true,
-				data: "The Email was sent successfully"
-			})
+		// 	res.status(200).json({
+		// 		success: true,
+		// 		data: "The Email was sent successfully"
+		// 	})
 
-		} catch (error) {
-			user.resetPasswordToken = undefined
-			user.resetPasswordExpiry = undefined
+		// } catch (error) {
+		// 	user.resetPasswordToken = undefined
+		// 	user.resetPasswordExpiry = undefined
 
-			user.save()
-			return next(new ErrorResponse("Email couldn't be sent", 500))
-		}
+		// 	await user.save()
+		// 	return next(new ErrorResponse("Email couldn't be sent", 500))
+		// }
 
 	} catch (error) {
 		logger.error(`Catch forgot password error: ${JSON.stringify(error)}`)
