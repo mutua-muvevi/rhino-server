@@ -10,7 +10,7 @@
     "server": "nodemon index.js"
   },
   "engines": {
-    "node": "16.x",
+    "node": "20.x",
     "yarn": "1.x"
   },
   "dependencies": {

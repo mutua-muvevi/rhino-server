@@ -48,8 +48,6 @@ exports.postStorage = async (req, res, next) => {
 		if (existingTrackNo) {
 			return next(new ErrorResponse("This track number already exists, please try another", 400))
 		}
-
-		console.log("Req", req.body)
 		
 		const depositorItems = {
 			fullname: depositorFullname,
