@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		minlength: [3, "The minimum length required for lastname is 3"],
 		maxlength: [50, "The maximum length required for lastname is 50"],
-		required: [true, "Lastname is required"],
 		trim: true
 	},
 	email: {
@@ -31,21 +30,18 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		minlength: [7, "The minimum length required for telephone is 7"],
 		maxlength: [25, "The maximum length required for telephone is 25"],
-		required: [true, "Telephone is required"],
 		trim: true
 	},
 	city: {
 		type: String,
 		minlength: [3, "The minimum length required for city is 3"],
 		maxlength: [100, "The maximum length required for city is 100"],
-		required: [true, "City is required"],
 		trim: true
 	},
 	country: {
 		type: String,
 		minlength: [3, "The minimum length required for country is 3"],
 		maxlength: [100, "The maximum length required for country is 100"],
-		required: [true, "Country is required"],
 		trim: true
 	},
 	password: {

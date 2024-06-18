@@ -1,32 +1,21 @@
-const nodemailer = require("nodemailer");
-const logger = require("./logger");
+const SparkPost = require("sparkpost");
+const client = new SparkPost(process.env.SEND_EMAIL_API_KEY, {
+	origin: "https://api.eu.sparkpost.com",
+});
 
-const sendEmail = (options) => {
+const SendEmail = async ({ to, from, subject, html }) => {
+	console.log("Value from email is", to, from, subject, html)
 
-	// the transporter that will send the mail
-	const transporter = nodemailer.createTransport({
-		service : process.env.EMAIL_SERVICE,
-		auth: {
-			user: process.env.EMAIL_USERNAME,
-			pass: process.env.EMAIL_PASSWORD
-		}
-	})
+	const response = await client.transmissions.send({
+		content: {
+			from,
+			subject,
+			html,
+		},
+		recipients: [{ address: to }],
+	});
 
-	// mail options
-	const mailOptions = {
-		from: process.env.EMAIL_FROM,
-		to: options.to,
-		subject: options.subject,
-		html: options.html
-	}
+	return response;
+};
 
-	transporter.sendMail(mailOptions, (error, info) => {
-		if(error){
-			logger.error(`Send Mail Error : ${error}`)
-		} else {
-			logger.info(`Transporter: Email sent successfully`)
-		}
-	})
-}
-
-module.exports = sendEmail
+module.exports = SendEmail;

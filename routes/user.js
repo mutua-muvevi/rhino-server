@@ -1,8 +1,14 @@
 const express = require("express");
 const router = express.Router()
-const { register, login, forgotPassword, resetpassword, deleteUser, fetchAllUsers, fetchAllAdmins, fetchSingleUser, editUser } = require("../controller/user");
+const { deleteUser, fetchAllUsers, fetchAllAdmins, fetchSingleUser, editUser } = require("../controller/user");
 const { getMe } = require("../middleware/me");
 const { onlyAdmin } = require("../middleware/auth");
+
+const { register } = require("../controller/user/register")
+const { login } = require("../controller/user/login")
+const { forgotPassword } = require("../controller/user/forget")
+const { resetpassword } = require("../controller/user/reset")
+
 
 // authentication
 router.route("/register").post(register);
